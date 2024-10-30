@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mysql-deployment
+  namespace: myapp  # The namespace where the deployment will live
+spec:
+  replicas: 1  # Number of instances of the MySQL database
+  selector:
+    matchLabels:
+      app: mysql  # Label to identify the Pods managed by this Deployment
+  template:
+    metadata:
+      labels:
+        app: mysql  # Same label as in the selector
+    spec:
+      containers:
+        - name: mysql  # Name of the container
+          image: mysql:5.7  # Docker image to use
+          env:
+            - name: MYSQL_ROOT_PASSWORD
+              value: "example"  # Root password for MySQL
+            - name: MYSQL_DATABASE
+              value: "mydatabase"  # Database to create
+          ports:
+            - containerPort: 3306  # Port the container listens on

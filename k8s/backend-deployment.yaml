@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend-deployment
+  namespace: myapp  # The namespace where the deployment will live
+spec:
+  replicas: 1  # Number of instances of the backend
+  selector:
+    matchLabels:
+      app: backend  # Label to identify the Pods managed by this Deployment
+  template:
+    metadata:
+      labels:
+        app: backend  # Same label as in the selector
+    spec:
+      containers:
+        - name: backend  # Name of the container
+          image: sdinesh14/backend-app:latest  # Docker image to use
+          ports:
+            - containerPort: 5000  # Port the container listens on
